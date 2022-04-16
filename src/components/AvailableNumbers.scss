@@ -1,6 +1,23 @@
 .choices {
-  background-color: red;
   display: grid;
   
+  width: min-content;
+  height: min-content;
+
+  grid-gap: 5px;
+  
   grid-template-columns: repeat(2, 1fr);
+
+  & > section {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+
+    background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+  }
 }
