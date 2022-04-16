@@ -50,7 +50,7 @@ export default function NumberGrid(props) {
   };
 
   const onDrop = (e, index) => {
-    const val = e.dataTransfer.getData("val");
+    const val = Number(e.dataTransfer.getData("val"));
     const choiceCopy = [...choices];
     choiceCopy[index] = val;
     setChoices(choiceCopy);

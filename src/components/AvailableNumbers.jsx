@@ -12,24 +12,27 @@ export default function AvailableNumbers(props) {
   const onDragStart = (e, val) => {
     console.log("dragstart:", val);
     e.dataTransfer.setData("val", val);
+    console.log(choices)
   };
 
   return (
-    <article className="choices">
-      {nums.map((num) => {
-        const used = choices.some((e) => e === num);
-        const classes = classNames("choice", { used });
-        return (
-          <section
-            key={num}
-            draggable
-            onDragStart={(e) => onDragStart(e, num)}
-            className={classes}
-          >
-            {num}
-          </section>
-        );
-      })}
-    </article>
+    <div className="choices-container">
+      <article className="choices">
+        {nums.map((num) => {
+          const used = choices.includes(num);
+          const classes = classNames("choice", { used });
+          return (
+            <section
+              key={num}
+              draggable={!used}
+              onDragStart={(e) => onDragStart(e, num)}
+              className={classes}
+            >
+              {num}
+            </section>
+          );
+        })}
+      </article>
+    </div>
   );
 }
