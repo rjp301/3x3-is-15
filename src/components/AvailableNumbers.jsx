@@ -10,8 +10,8 @@ export default function AvailableNumbers(props) {
   }
 
   const onDragStart = (e, val) => {
-    console.log("dragstart:", val)
-    e.dataTransfer.setData("val",val)
+    console.log("dragstart:", val);
+    e.dataTransfer.setData("val", val);
   };
 
   return (

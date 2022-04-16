@@ -3,7 +3,7 @@ import { sumRow, sumCol, sumDia } from "./../helpers/summers";
 import "./NumberGrid.scss";
 
 export default function NumberGrid(props) {
-  const { choices } = props;
+  const { choices, setChoices } = props;
 
   // const cells = 3;
   // const nums = [];
@@ -50,8 +50,10 @@ export default function NumberGrid(props) {
   };
 
   const onDrop = (e, index) => {
-    const val = e.dataTransfer.getData("val")
-    console.log("drop");
+    const val = e.dataTransfer.getData("val");
+    const choiceCopy = [...choices];
+    choiceCopy[index] = val;
+    setChoices(choiceCopy);
   };
 
   return (
@@ -73,16 +75,20 @@ export default function NumberGrid(props) {
       <section className="summation">{sumCol(choices, 2)}</section>
       <section className="summation">{sumDia(choices)}</section> */}
 
-      {choices.map((choice, index) => (
-        <section
-          className="draggable"
-          key={index}
-          onDragOver={onDragOver}
-          onDrop={(e) => onDrop(e, index)}
-        >
-          {choice}
-        </section>
-      ))}
+      {choices.map((choice, index) => {
+        const classes = classNames("choice", { empty: choice === 0 });
+
+        return (
+          <section
+            className={classes}
+            key={index}
+            onDragOver={onDragOver}
+            onDrop={(e) => onDrop(e, index)}
+          >
+            {choice}
+          </section>
+        );
+      })}
     </article>
   );
 }
