@@ -9,12 +9,6 @@ export default function AvailableNumbers(props) {
     nums.push(i);
   }
 
-  const onDragStart = (e, val) => {
-    console.log("dragstart:", val);
-    e.dataTransfer.setData("val", val);
-    console.log(choices)
-  };
-
   return (
     <div className="choices-container">
       <article className="choices">
@@ -25,7 +19,7 @@ export default function AvailableNumbers(props) {
             <section
               key={num}
               draggable={!used}
-              onDragStart={(e) => onDragStart(e, num)}
+              onDragStart={(e) => e.dataTransfer.setData("val", num)}
               className={classes}
             >
               {num}

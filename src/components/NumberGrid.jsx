@@ -49,46 +49,86 @@ export default function NumberGrid(props) {
     e.preventDefault();
   };
 
-  const onDrop = (e, index) => {
-    const val = Number(e.dataTransfer.getData("val"));
+  const setChoiceByIndex = (val, index) => {
     const choiceCopy = [...choices];
     choiceCopy[index] = val;
     setChoices(choiceCopy);
   };
 
   return (
-    <article className="result">
-      {/* <section>{choices[0]}</section>
-      <section>{choices[1]}</section>
-      <section>{choices[2]}</section>
-      <section className="summation">{sumRow(choices, 0)}</section>
-      <section>{choices[3]}</section>
-      <section>{choices[4]}</section>
-      <section>{choices[5]}</section>
-      <section className="summation">{sumRow(choices, 1)}</section>
-      <section>{choices[6]}</section>
-      <section>{choices[7]}</section>
-      <section>{choices[8]}</section>
-      <section className="summation">{sumRow(choices, 2)}</section>
-      <section className="summation">{sumCol(choices, 0)}</section>
-      <section className="summation">{sumCol(choices, 1)}</section>
-      <section className="summation">{sumCol(choices, 2)}</section>
-      <section className="summation">{sumDia(choices)}</section> */}
+    <div className="result">
+      <article id="grid">
+        {choices.map((choice, index) => {
+          const empty = choice === 0;
+          const classes = classNames("choice", { empty });
 
-      {choices.map((choice, index) => {
-        const classes = classNames("choice", { empty: choice === 0 });
-
-        return (
-          <section
-            className={classes}
-            key={index}
-            onDragOver={onDragOver}
-            onDrop={(e) => onDrop(e, index)}
-          >
-            {choice}
-          </section>
-        );
-      })}
-    </article>
+          return (
+            <section
+              className={classes}
+              key={index}
+              draggable={!empty}
+              onDragStart={(e) => {
+                e.dataTransfer.setData("val", choice);
+              }}
+              onDragEnd={(e) => {
+                setChoiceByIndex(0, index);
+              }}
+              onDragOver={onDragOver}
+              onDrop={(e) => {
+                const val = Number(e.dataTransfer.getData("val"));
+                setChoiceByIndex(val, index);
+              }}
+            >
+              {choice}
+            </section>
+          );
+        })}
+      </article>
+      <article id="sum-row">
+        {[0, 1, 2].map((index) => {
+          const sum = sumRow(choices, index);
+          const classes = classNames("summation", {
+            high: sum > 15,
+            low: sum < 15,
+            correct: sum === 15,
+          });
+          return (
+            <section key={index} className={classes}>
+              {sum}
+            </section>
+          );
+        })}
+      </article>
+      <article id="sum-col">
+        {[0, 1, 2].map((index) => {
+          const sum = sumCol(choices, index);
+          const classes = classNames("summation", {
+            high: sum > 15,
+            low: sum < 15,
+            correct: sum === 15,
+          });
+          return (
+            <section key={index} className={classes}>
+              {sum}
+            </section>
+          );
+        })}
+      </article>
+      <article id="sum-dia">
+        {[0].map((index) => {
+          const sum = sumDia(choices, index);
+          const classes = classNames("summation", {
+            high: sum > 15,
+            low: sum < 15,
+            correct: sum === 15,
+          });
+          return (
+            <section key={index} className={classes}>
+              {sum}
+            </section>
+          );
+        })}
+      </article>
+    </div>
   );
 }

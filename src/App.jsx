@@ -8,6 +8,7 @@ function App() {
 
   return (
     <div className="App">
+      <h1>3 x 3 = 15</h1>
       <div className="game-container">
         <AvailableNumbers choices={choices} />
         <NumberGrid choices={choices} setChoices={setChoices} />
