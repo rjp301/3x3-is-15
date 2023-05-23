@@ -11,6 +11,7 @@
 </script>
 
 <main>
+  <h1 class="text-3xl">3 x 3 = 15</h1>
   <section id="game-grid" class="chosen-grid">
     <ChosenItem bind:value={chosen.a} />
     <ChosenItem bind:value={chosen.b} />
@@ -48,7 +49,7 @@
 
 <style>
   main {
-    @apply flex items-center justify-center h-screen font-[bungee] flex-col gap-8;
+    @apply flex items-center font-[bungee] flex-col gap-2;
   }
 
   .chosen-grid {
