@@ -1,10 +1,8 @@
 <script lang="ts">
-  // Your selected Skeleton theme:
-  import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
-  import "@skeletonlabs/skeleton/styles/skeleton.css";
   import "./app.css";
 
   import ChosenItem from "./lib/ChosenItem.svelte";
+  import ChosenSum from "./lib/ChosenSum.svelte";
 
   let choices = Array.from({ length: 9 }, (_, index) => index + 1);
   const chosen = { a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0 };
@@ -16,19 +14,19 @@
     <ChosenItem bind:value={chosen.a} />
     <ChosenItem bind:value={chosen.b} />
     <ChosenItem bind:value={chosen.c} />
-    <ChosenItem value={chosen.a + chosen.b + chosen.c} sum={true} />
+    <ChosenSum value={chosen.a + chosen.b + chosen.c} />
     <ChosenItem bind:value={chosen.d} />
     <ChosenItem bind:value={chosen.e} />
     <ChosenItem bind:value={chosen.f} />
-    <ChosenItem value={chosen.d + chosen.e + chosen.f} sum={true} />
+    <ChosenSum value={chosen.d + chosen.e + chosen.f} />
     <ChosenItem bind:value={chosen.g} />
     <ChosenItem bind:value={chosen.h} />
     <ChosenItem bind:value={chosen.i} />
-    <ChosenItem value={chosen.g + chosen.h + chosen.i} sum={true} />
-    <ChosenItem value={chosen.a + chosen.d + chosen.g} sum={true} />
-    <ChosenItem value={chosen.b + chosen.e + chosen.h} sum={true} />
-    <ChosenItem value={chosen.c + chosen.f + chosen.i} sum={true} />
-    <ChosenItem value={chosen.a + chosen.e + chosen.i} sum={true} />
+    <ChosenSum value={chosen.g + chosen.h + chosen.i} />
+    <ChosenSum value={chosen.a + chosen.d + chosen.g} />
+    <ChosenSum value={chosen.b + chosen.e + chosen.h} />
+    <ChosenSum value={chosen.c + chosen.f + chosen.i} />
+    <ChosenSum value={chosen.a + chosen.e + chosen.i} />
   </section>
   <section class="flex gap-2 text-xl">
     {#each choices
