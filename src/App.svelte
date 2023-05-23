@@ -1,47 +1,57 @@
 <script lang="ts">
-  import svelteLogo from './assets/svelte.svg'
-  import viteLogo from '/vite.svg'
-  import Counter from './lib/Counter.svelte'
+  // Your selected Skeleton theme:
+  import "@skeletonlabs/skeleton/themes/theme-skeleton.css";
+  import "@skeletonlabs/skeleton/styles/skeleton.css";
+  import "./app.css";
+
+  import ChosenItem from "./lib/ChosenItem.svelte";
+
+  let choices = Array.from({ length: 9 }, (_, index) => index + 1);
+  const chosen = { a: 0, b: 0, c: 0, d: 0, e: 0, f: 0, g: 0, h: 0, i: 0 };
 </script>
 
 <main>
-  <div>
-    <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-      <img src={viteLogo} class="logo" alt="Vite Logo" />
-    </a>
-    <a href="https://svelte.dev" target="_blank" rel="noreferrer">
-      <img src={svelteLogo} class="logo svelte" alt="Svelte Logo" />
-    </a>
-  </div>
-  <h1>Vite + Svelte</h1>
-
-  <div class="card">
-    <Counter />
-  </div>
-
-  <p>
-    Check out <a href="https://github.com/sveltejs/kit#readme" target="_blank" rel="noreferrer">SvelteKit</a>, the official Svelte app framework powered by Vite!
-  </p>
-
-  <p class="read-the-docs">
-    Click on the Vite and Svelte logos to learn more
-  </p>
+  <section id="game-grid" class="chosen-grid">
+    <ChosenItem bind:value={chosen.a} />
+    <ChosenItem bind:value={chosen.b} />
+    <ChosenItem bind:value={chosen.c} />
+    <ChosenItem value={chosen.a + chosen.b + chosen.c} sum={true} />
+    <ChosenItem bind:value={chosen.d} />
+    <ChosenItem bind:value={chosen.e} />
+    <ChosenItem bind:value={chosen.f} />
+    <ChosenItem value={chosen.d + chosen.e + chosen.f} sum={true} />
+    <ChosenItem bind:value={chosen.g} />
+    <ChosenItem bind:value={chosen.h} />
+    <ChosenItem bind:value={chosen.i} />
+    <ChosenItem value={chosen.g + chosen.h + chosen.i} sum={true} />
+    <ChosenItem value={chosen.a + chosen.d + chosen.g} sum={true} />
+    <ChosenItem value={chosen.b + chosen.e + chosen.h} sum={true} />
+    <ChosenItem value={chosen.c + chosen.f + chosen.i} sum={true} />
+    <ChosenItem value={chosen.a + chosen.e + chosen.i} sum={true} />
+  </section>
+  <section class="flex gap-2 text-xl">
+    {#each choices
+      .filter((value) => !Object.values(chosen).includes(value))
+      .sort() as choice}
+      <div
+        draggable={true}
+        on:dragstart={(event) => {
+          console.log("dragging choice with the value", choice);
+          event.dataTransfer.setData("text/plain", choice.toString());
+        }}
+      >
+        {choice}
+      </div>
+    {/each}
+  </section>
 </main>
 
 <style>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
+  main {
+    @apply flex items-center justify-center h-screen font-[bungee] flex-col gap-8;
   }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.svelte:hover {
-    filter: drop-shadow(0 0 2em #ff3e00aa);
-  }
-  .read-the-docs {
-    color: #888;
+
+  .chosen-grid {
+    @apply grid grid-cols-4 gap-4 outline p-4 rounded-[2.5rem];
   }
 </style>
