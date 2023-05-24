@@ -16,7 +16,7 @@
 </script>
 
 <div
-  class={"flex items-center justify-center border-2 rounded-full w-12 h-12 text-3xl select-none " +
+  class={"flex items-center justify-center border-2 rounded-full w-10 h-10 text-xl select-none " +
     (value > 0 ? "bg-sky-300 border-sky-300" : "")}
   draggable={value > 0}
   on:dragover|preventDefault
