@@ -1,28 +1,32 @@
 <script lang="ts">
-  export let value: number;
+  export let setValue: (value: number) => void;
 
-  const handleDrop = (event) => {
-    console.log("dropping");
-    value = parseInt(event.dataTransfer.getData("text/plain"));
+  let items = [];
+
+  function handleDnd(e) {
+    items = e.detail.items;
+    setValue(items[0].value);
+  }
+
+  $: options = {
+    dropFromOthersDisabled: Boolean(items.length),
+    items,
+    dropTargetStyle: {},
+    flipDurationMs: 100,
   };
 
-  const handleDragStart = (event) => {
-    event.dataTransfer.setData("text/plain", value.toString());
-  };
+  import { dndzone } from "svelte-dnd-action";
+  import { flip } from "svelte/animate";
 
-  const handleDragEnd = (event) => {
-    value = 0;
-  };
+  const flipDurationMs = 200;
 </script>
 
 <div
   class={"flex items-center justify-center border-2 rounded-full w-10 h-10 text-xl select-none " +
-    (value > 0 ? "bg-sky-300 border-sky-300" : "")}
-  draggable={value > 0}
-  on:dragover|preventDefault
-  on:drop|preventDefault={handleDrop}
-  on:dragstart={handleDragStart}
-  on:dragend={handleDragEnd}
+    (items.length > 0 ? "bg-sky-300 border-sky-300" : "")}
+  use:dndzone={options}
+  on:consider={handleDnd}
+  on:finalize={handleDnd}
 >
-  {value}
+  {items.length > 0 ? items[0].value : 0}
 </div>
