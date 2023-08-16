@@ -5,18 +5,19 @@
 
   function handleDnd(e) {
     items = e.detail.items;
-    setValue(items[0].value);
+    setValue(full ? items[0].value : 0);
   }
 
+  $: full = Boolean(items.length);
+
   $: options = {
-    dropFromOthersDisabled: Boolean(items.length),
+    dropFromOthersDisabled: full,
     items,
     dropTargetStyle: {},
     flipDurationMs: 100,
   };
 
   import { dndzone } from "svelte-dnd-action";
-  import { flip } from "svelte/animate";
 
   const flipDurationMs = 200;
 </script>
@@ -28,5 +29,7 @@
   on:consider={handleDnd}
   on:finalize={handleDnd}
 >
-  {items.length > 0 ? items[0].value : 0}
+  {#each items as tile (tile.id)}
+    {tile.value}
+  {/each}
 </div>

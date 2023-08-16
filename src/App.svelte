@@ -33,34 +33,11 @@
     flipDurationMs,
     morphDisabled: true,
   };
+
+  $: console.log(chosen);
 </script>
 
-<div class="game-container">
-  <div class="grid">
-    {#each boardGrid as col}
-      <div class="col">
-        {#each col as square}
-          <Square />
-        {/each}
-      </div>
-    {/each}
-  </div>
-
-  <div
-    class="rack"
-    use:dndzone={options}
-    on:consider={handleDnd}
-    on:finalize={handleDnd}
-  >
-    {#each items as item (item.id)}
-      <div animate:flip={{ duration: flipDurationMs }}>
-        <Tile value={item.value} />
-      </div>
-    {/each}
-  </div>
-</div>
-
-<!-- <header class="text-center mb-4">
+<header class="text-center mb-4">
   <h1 class="text-4xl text-sky-300">3 x 3 = 15</h1>
 </header>
 <main class="flex flex-col items-center gap-2 mb-4">
@@ -85,13 +62,16 @@
     <ChosenSum value={chosen.c + chosen.f + chosen.i} orientation="v" />
     <ChosenSum value={chosen.a + chosen.e + chosen.i} orientation="d" />
   </section>
+
   <section
     id="rack"
     class="flex gap-2"
-    use:dndzone={{ items: items, morphDisabled: true }}
+    use:dndzone={options}
+    on:consider={handleDnd}
+    on:finalize={handleDnd}
   >
-    {#each items as choice}
-      <div>
+    {#each items as choice (choice.id)}
+      <div animate:flip={{ duration: flipDurationMs }}>
         {choice.value}
       </div>
     {/each}
@@ -114,33 +94,9 @@
       <li class="mx-4">It is possible! Don't give up</li>
     </ol>
   </details>
-</footer> -->
+</footer>
 
 <style>
-  :global(body *) {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  .game-container {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background-color: #272727;
-  }
-
-  .grid {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-  }
-  .col {
-    display: flex;
-    flex-direction: column;
-  }
-
   .rack {
     display: flex;
     justify-content: flex-start;
