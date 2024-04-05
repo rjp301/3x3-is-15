@@ -1,31 +1,58 @@
 import Grid from "./components/grid";
-import { Button } from "./components/ui/button";
-import { toast } from "sonner";
 import Options from "./components/options";
-import Rules from "./components/rules";
-import { DndContext } from "@dnd-kit/core";
+import {
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragStartEvent,
+} from "@dnd-kit/core";
+import Footer from "./components/footer";
 import { useChoiceStore } from "./lib/store";
+import { Chosen } from "./lib/types";
 
 function App() {
-  const reset = useChoiceStore((s) => s.reset);
+  const { setChoice, activeChoice, setActiveChoice } = useChoiceStore(
+    (state) => ({
+      setChoice: state.setChoice,
+      activeChoice: state.activeChoice,
+      setActiveChoice: state.setActiveChoice,
+    })
+  );
+
+  const handleDragStart = (event: DragStartEvent) => {
+    console.log(event);
+    setActiveChoice(event.active.id as number);
+  };
+
+  const handleDragOver = (event: DragOverEvent) => {
+    console.log(event);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    if (!event.over) return;
+    setChoice(event.over.id as keyof Chosen, event.active.id as number);
+    setActiveChoice(null);
+  };
+
   return (
-    <DndContext>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      onDragMove={handleDragOver}
+    >
       <main className="flex flex-col items-center gap-4 mx-auto py-4 h-full max-w-min">
         <h1 className="text-4xl text-primary font-bold">3 x 3 = 15</h1>
         <Grid />
         <Options />
-        <Button
-          className="w-full"
-          onClick={() => {
-            reset();
-            toast.success("Game reset");
-          }}
-          variant="secondary"
-        >
-          Reset
-        </Button>
-        <Rules />
+        <Footer />
       </main>
+      {/* <DragOverlay>
+        {activeChoice !== null ? (
+          <Button className="rounded-full h-10 w-10 text-xl">
+            {activeChoice}
+          </Button>
+        ) : null}
+      </DragOverlay> */}
     </DndContext>
   );
 }

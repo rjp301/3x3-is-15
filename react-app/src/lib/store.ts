@@ -19,6 +19,11 @@ export const useChoiceStore = create<State & Actions>()(
     activeChoice: null,
     setChoice: (key, value) =>
       set((state) => {
+        // remove value from other keys
+        Object.entries(state.chosen).forEach(([k, v]) => {
+          if (v === value) state.chosen[k as keyof Chosen] = 0;
+        });
+
         state.chosen[key] = value;
         state.activeChoice = null;
       }),

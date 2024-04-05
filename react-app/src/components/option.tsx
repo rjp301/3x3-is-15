@@ -12,7 +12,7 @@ const Option: React.FC<Props> = (props) => {
   const { value } = props;
 
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
-    id: value.toString(),
+    id: value,
   });
   const style = {
     transform: CSS.Translate.toString(transform),
