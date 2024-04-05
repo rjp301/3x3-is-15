@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 :root {
-  font-size: 28px;
+  font-size: 26px;
+  overscroll-behavior: none;
 }
 
 @layer base {

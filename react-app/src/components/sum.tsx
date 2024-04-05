@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import { buttonVariants } from "./ui/button";
 
 type Orientations = {
   v: string;
@@ -25,11 +24,7 @@ const Sum: React.FC<Props> = (props) => {
   return (
     <div
       className={cn(
-        buttonVariants({
-          variant: "ghost",
-          size: "icon",
-        }),
-        "rounded-full",
+        "text-sm flex items-center justify-center font-bold",
         value === 15 ? "text-green-500" : "text-red-500",
         orientations[orientation]
       )}

@@ -2,7 +2,13 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useChoiceStore } from "@/lib/store";
 import { toast } from "sonner";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 
 const Footer: React.FC = () => {
   const reset = useChoiceStore((s) => s.reset);
@@ -18,21 +24,24 @@ const Footer: React.FC = () => {
       >
         Reset
       </Button>
-      <Popover>
-        <PopoverTrigger asChild>
+
+      <Drawer>
+        <DrawerTrigger asChild>
           <Button variant="secondary" size="icon">
             ?
           </Button>
-        </PopoverTrigger>
-        <PopoverContent>
-          <h2 className="mb-2">How To Play</h2>
-          <ol className="list-decimal text-xs ml-4 flex flex-col gap-1">
-            <li>Drag the numbers 1 through 9 onto the board</li>
-            <li>Try to arrange them such that each axis sums to 15</li>
-            <li>It is possible! Don't give up</li>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerHeader>
+            <DrawerTitle>Rules of the Game</DrawerTitle>
+          </DrawerHeader>
+          <ol className="text-xs ml-4 flex flex-col gap-1 pb-6">
+            <li>A. Drag the numbers 1 through 9 onto the board</li>
+            <li>B. Try to arrange them such that each axis sums to 15</li>
+            <li>C. It is possible! Don't give up</li>
           </ol>
-        </PopoverContent>
-      </Popover>
+        </DrawerContent>
+      </Drawer>
     </section>
   );
 };
