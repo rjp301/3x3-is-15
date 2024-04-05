@@ -12,7 +12,6 @@ import {
 import Footer from "./components/footer";
 import { useChoiceStore } from "./lib/store";
 import { Chosen } from "./lib/types";
-import { Toaster } from "./components/ui/sonner";
 
 function App() {
   const mouseSensor = useSensor(MouseSensor);
@@ -36,8 +35,6 @@ function App() {
         <Options />
         <Footer />
       </main>
-
-      <Toaster position="top-center" richColors />
     </DndContext>
   );
 }

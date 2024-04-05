@@ -38,7 +38,8 @@ const Footer: React.FC = () => {
           <ol className="text-xs ml-4 flex flex-col gap-1 pb-6">
             <li>A. Drag the numbers 1 through 9 onto the board</li>
             <li>B. Try to arrange them such that each axis sums to 15</li>
-            <li>C. It is possible! Don't give up</li>
+            <li>C. Double tap to reset a spot on the board</li>
+            <li>D. It is possible! Don't give up</li>
           </ol>
         </DrawerContent>
       </Drawer>
