@@ -1,16 +1,11 @@
-import { Chosen } from "@/lib/types";
 import React from "react";
 import Option from "./option";
-
-interface Props {
-  chosen: Chosen;
-}
+import { useChoiceStore } from "@/lib/store";
 
 const CHOICES = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-const Options: React.FC<Props> = (props) => {
-  const { chosen } = props;
-
+const Options: React.FC = () => {
+  const chosen = useChoiceStore((state) => state.chosen);
   return (
     <section className="flex gap-1">
       {CHOICES.filter((value) => !Object.values(chosen).includes(value)).map(
