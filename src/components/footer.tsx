@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import {
   Drawer,
   DrawerContent,
+  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
@@ -35,12 +36,24 @@ const Footer: React.FC = () => {
           <DrawerHeader>
             <DrawerTitle>Rules of the Game</DrawerTitle>
           </DrawerHeader>
-          <ol className="text-xs ml-4 flex flex-col gap-1 pb-6">
+          <ol className="text-xs ml-4 flex flex-col gap-1">
             <li>A. Drag the numbers 1 through 9 onto the board</li>
             <li>B. Try to arrange them such that each axis sums to 15</li>
             <li>C. Double tap to reset a spot on the board</li>
             <li>D. It is possible! Don't give up</li>
           </ol>
+          <DrawerFooter>
+            <p className="text-[16px] text-muted-foreground">
+              An app by{" "}
+              <a
+                target="_blank"
+                className="text-sky-300 hover:underline hover:text-sky-400"
+                href="https://rileypaul.ca"
+              >
+                Riley Paul
+              </a>
+            </p>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </section>
