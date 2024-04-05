@@ -4,12 +4,10 @@ import { immer } from "zustand/middleware/immer";
 
 interface State {
   chosen: Chosen;
-  activeChoice: number | null;
 }
 
 interface Actions {
   setChoice: (key: keyof Chosen, value: number) => void;
-  setActiveChoice: (value: number | null) => void;
   reset: () => void;
 }
 
@@ -25,11 +23,6 @@ export const useChoiceStore = create<State & Actions>()(
         });
 
         state.chosen[key] = value;
-        state.activeChoice = null;
-      }),
-    setActiveChoice: (value) =>
-      set((state) => {
-        state.activeChoice = value;
       }),
     reset: () =>
       set((state) => {
