@@ -1,16 +1,24 @@
 import { cn } from "@/lib/utils";
 import React from "react";
 import { buttonVariants } from "./ui/button";
+import { useDroppable } from "@dnd-kit/core";
+import { Chosen } from "@/lib/types";
 
 interface Props {
+  id: keyof Chosen;
   value: number;
 }
 
 const Pocket: React.FC<Props> = (props) => {
-  const { value } = props;
+  const { id, value } = props;
+
+  const { setNodeRef } = useDroppable({
+    id,
+  });
 
   return (
     <div
+      ref={setNodeRef}
       className={cn(
         buttonVariants({
           variant: value > 0 ? "default" : "outline",

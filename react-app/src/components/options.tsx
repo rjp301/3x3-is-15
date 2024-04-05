@@ -1,7 +1,6 @@
 import { Chosen } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import React from "react";
-import { buttonVariants } from "./ui/button";
+import Option from "./option";
 
 interface Props {
   chosen: Chosen;
@@ -15,15 +14,8 @@ const Options: React.FC<Props> = (props) => {
   return (
     <section className="flex gap-1">
       {CHOICES.filter((value) => !Object.values(chosen).includes(value)).map(
-        (i) => (
-          <div
-            className={cn(
-              buttonVariants({ variant: "ghost", size: "sm" }),
-              "h-4 w-4 p-0 rounded cursor-grab"
-            )}
-          >
-            {i}
-          </div>
+        (value) => (
+          <Option key={value} value={value} />
         )
       )}
     </section>
