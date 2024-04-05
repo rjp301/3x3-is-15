@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
         className="w-full"
         onClick={() => {
           reset();
-          toast.success("Game reset");
+          toast.success("Game reset", { id: "reset" });
         }}
         variant="secondary"
       >
