@@ -13,7 +13,7 @@ const Pocket: React.FC<Props> = (props) => {
     <div
       className={cn(
         buttonVariants({
-          variant: value > 0 ? "default" : "secondary",
+          variant: value > 0 ? "default" : "outline",
           size: "icon",
         }),
         "rounded-full h-10 w-10 text-xl"

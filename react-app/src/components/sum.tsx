@@ -29,7 +29,8 @@ const Sum: React.FC<Props> = (props) => {
           variant: "ghost",
           size: "icon",
         }),
-        "rounded-full text-xl",
+        "rounded-full",
+        value === 15 ? "text-green-500" : "text-red-500",
         orientations[orientation]
       )}
     >
