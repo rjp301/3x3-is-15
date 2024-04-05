@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Chosen, defaultChosen } from "./types";
+import { Chosen, defaultChosen } from "./chosen";
 import { immer } from "zustand/middleware/immer";
 
 interface State {

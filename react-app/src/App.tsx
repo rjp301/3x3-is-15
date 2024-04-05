@@ -11,7 +11,9 @@ import {
 } from "@dnd-kit/core";
 import Footer from "./components/footer";
 import { useChoiceStore } from "./lib/store";
-import { Chosen } from "./lib/types";
+import { Chosen, winningChosen } from "./lib/chosen";
+import { toast } from "sonner";
+import React from "react";
 
 function App() {
   const mouseSensor = useSensor(MouseSensor);
@@ -20,12 +22,32 @@ function App() {
 
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
-  const setChoice = useChoiceStore((state) => state.setChoice);
+  const { setChoice, won, reset } = useChoiceStore((state) => ({
+    setChoice: state.setChoice,
+    won: winningChosen(state.chosen),
+    reset: state.reset,
+  }));
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (!event.over) return;
     setChoice(event.over.id as keyof Chosen, event.active.id as number);
   };
+
+  React.useEffect(() => {
+    if (won) {
+      toast("You won!", {
+        id: "win",
+        duration: Infinity,
+        action: {
+          label: "Play again",
+          onClick: () => {
+            reset();
+            toast.dismiss("win");
+          },
+        },
+      });
+    }
+  }, [reset, won]);
 
   return (
     <DndContext onDragEnd={handleDragEnd} sensors={sensors}>

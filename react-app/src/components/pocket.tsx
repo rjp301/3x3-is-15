@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import { Button, buttonVariants } from "./ui/button";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
-import { Chosen } from "@/lib/types";
+import { Chosen } from "@/lib/chosen";
 import { useChoiceStore } from "@/lib/store";
 import { CSS } from "@dnd-kit/utilities";
 
