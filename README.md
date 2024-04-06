@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# 3x3=15 Game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Number puzzle game where the goal is to arrange the numbers 1 through 9 in a 3x3 grid such that each horizontal axis and one diagonal sums to 15.
 
-Currently, two official plugins are available:
+As far as I know there is one solution.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Inspiration
 
-## Expanding the ESLint configuration
+A buddy in university told me about this interesting puzzle. I recreated the problem in a spreadsheet and was able to solve it. Years later I was looking for a good project to teach myself more about drag and drop interfaces and realized this was a perfect candidate.
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Tech Stack
 
-- Configure the top-level `parserOptions` property like this:
+- **Language:** Typescript
+- **Framework:** React + Vite
+- **State Management:** Zustand
+- **Styling:** Shadcn/UI + TailwindCSS
+- **Drag and Drop:** DnD-Kit
+- **Hosting:** Vercel
+- **Email Service:** EmailJS
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## Implementation
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+I opted for a React Single-Page-Application for this so it can be deployed cheaply as static assets. Using the Shadcn/UI component library gave me a good base for the UI styling. I further customized it by creating a custom colour theme, choosing a whimsical font and increasing the font size throughout the application.
+
+A global state management solution may have been overkill for such a small application but I wanted to make use of the excellent persist middleware in Zustand. A global store also allows me to encapsulate all the state and state logic in one location. By storing the game state in localStorage the users game is peristed even if they close the tab or refresh the page.
+
+I only know of one solution to the puzzle and am curious as to whether there are others. So I made use of an email service to send myself the solution every time someone wins the game.
+
+## Future Plans
+
+I really enjoyed making a game using React and web technologies and would really like to make another!
