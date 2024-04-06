@@ -14,6 +14,7 @@ import { useChoiceStore } from "./lib/store";
 import { Chosen, winningChosen } from "./lib/chosen";
 import { toast } from "sonner";
 import React from "react";
+import { sendChosen } from "./lib/email";
 
 function App() {
   const mouseSensor = useSensor(MouseSensor);
@@ -22,10 +23,11 @@ function App() {
 
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
-  const { setChoice, won, reset } = useChoiceStore((state) => ({
+  const { setChoice, won, chosen, reset } = useChoiceStore((state) => ({
     setChoice: state.setChoice,
     won: winningChosen(state.chosen),
     reset: state.reset,
+    chosen: state.chosen,
   }));
 
   const handleDragEnd = (event: DragEndEvent) => {
@@ -35,6 +37,7 @@ function App() {
 
   React.useEffect(() => {
     if (won) {
+      sendChosen(chosen);
       toast("You won!", {
         id: "win",
         duration: Infinity,
