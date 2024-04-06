@@ -8,11 +8,11 @@ interface State {
 
 interface Actions {
   setChoice: (key: keyof Chosen, value: number) => void;
-  reset: () => void;
+  reset: () => () => void;
 }
 
 export const useChoiceStore = create<State & Actions>()(
-  immer((set) => ({
+  immer((set, get) => ({
     chosen: defaultChosen,
     activeChoice: null,
     setChoice: (key, value) =>
@@ -24,9 +24,16 @@ export const useChoiceStore = create<State & Actions>()(
 
         state.chosen[key] = value;
       }),
-    reset: () =>
+    reset: () => {
+      const currentState = get().chosen;
       set((state) => {
         state.chosen = defaultChosen;
-      }),
+      });
+      return () => {
+        set((state) => {
+          state.chosen = currentState;
+        });
+      };
+    },
   }))
 );

@@ -26,7 +26,7 @@ const Option: React.FC<Props> = (props) => {
       {...listeners}
       className={cn(
         buttonVariants({ variant: "ghost", size: "sm" }),
-        "h-4 w-4 p-0 rounded cursor-grab"
+        "h-5 w-5 p-0 rounded cursor-grab"
       )}
     >
       {value}

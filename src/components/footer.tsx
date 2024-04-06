@@ -12,14 +12,18 @@ import {
 } from "@/components/ui/drawer";
 
 const Footer: React.FC = () => {
-  const reset = useChoiceStore((s) => s.reset);
+  const reset = useChoiceStore((state) => state.reset);
+
   return (
     <section className="grid w-full grid-cols-[1fr_auto] gap-2">
       <Button
         className="w-full"
         onClick={() => {
-          reset();
-          toast.success("Game reset", { id: "reset" });
+          const undo = reset();
+          toast.success("Game reset", {
+            id: "reset",
+            action: { label: "Undo", onClick: undo },
+          });
         }}
         variant="secondary"
       >
